@@ -1,0 +1,38 @@
+{
+  "name": "spryker-sdk/blackfire",
+  "type": "library",
+  "description": "Blackfire module",
+  "license": "proprietary",
+  "require": {
+    "php": ">=7.1",
+    "spryker/kernel": "^3.33.0",
+    "spryker/zend": "^2.2.2"
+  },
+  "require-dev": {
+    "sllh/composer-versions-check": "^2.0.2",
+    "spryker/code-sniffer": "*",
+    "spryker/testify": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "SprykerSdkTest\\Shared\\Blackfire\\Helper\\": "tests/SprykerSdkTest/Shared/Blackfire/_support/Helper/",
+      "SprykerSdkTest\\Yves\\Blackfire\\Helper\\": "tests/SprykerSdkTest/Yves/Blackfire/_support/Helper/",
+      "SprykerSdkTest\\Zed\\Blackfire\\Helper\\": "tests/SprykerSdkTest/Zed/Blackfire/_support/Helper/",
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SprykerSdkTest\\": "tests/SprykerSdkTest/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
+}
