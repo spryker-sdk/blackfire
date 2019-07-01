@@ -5,7 +5,8 @@
   "license": "proprietary",
   "require": {
     "php": ">=7.1",
-    "blackfire/php-sdk": "^1.18"
+    "blackfire/php-sdk": "^1.18",
+    "guzzlehttp/psr7": "<1.6"
   },
   "require-dev": {
     "sllh/composer-versions-check": "^2.0.2",

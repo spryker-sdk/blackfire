@@ -55,16 +55,12 @@ abstract class AbstractBlackfireHelper extends Module
      */
     public function blackfireGet(string $url, array $context = []): void
     {
-        $requestContext = [
-            'blackfire' => $this->getConfiguration(),
-        ];
-        $requestContext = array_merge($requestContext, $context);
+        $response = $this->getClient()->get(
+            $this->buildUrl($url),
+            $this->buildRequestContext($context)
+        );
 
-        $response = $this->getClient()->get($this->buildUrl($url), $requestContext);
-
-        $this->assertSame(200, $response->getStatusCode(), sprintf('The requested URL "%s" returned response code "%s"', $url, $response->getStatusCode()));
-
-        $this->validate($response);
+        $this->validate($response, $url);
     }
 
     /**
@@ -75,25 +71,38 @@ abstract class AbstractBlackfireHelper extends Module
      */
     public function blackfirePost(string $url, array $context = []): void
     {
+        $response = $this->getClient()->post(
+            $this->buildUrl($url),
+            $this->buildRequestContext($context)
+        );
+
+        $this->validate($response, $url);
+    }
+
+    /**
+     * @param array $context
+     *
+     * @return array
+     */
+    protected function buildRequestContext(array $context): array
+    {
         $requestContext = [
             'blackfire' => $this->getConfiguration(),
         ];
         $requestContext = array_merge($requestContext, $context);
 
-        $response = $this->getClient()->post($this->buildUrl($url), $requestContext);
-
-        $this->assertSame(200, $response->getStatusCode(), sprintf('The requested URL "%s" returned response code "%s"', $url, $response->getStatusCode()));
-
-        $this->validate($response);
+        return $requestContext;
     }
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
+     * @param string $url
      *
      * @return void
      */
-    protected function validate(ResponseInterface $response): void
+    protected function validate(ResponseInterface $response, string $url): void
     {
+        $this->assertSame(200, $response->getStatusCode(), sprintf('The requested URL "%s" returned response code "%s"', $url, $response->getStatusCode()));
         $response = $this->getBlackfireClient()->getProfile($response->getHeader('X-Blackfire-Profile-Uuid')[0]);
 
         foreach ($response->getTests() as $test) {
