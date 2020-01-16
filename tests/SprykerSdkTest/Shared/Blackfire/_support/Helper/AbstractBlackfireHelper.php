@@ -658,12 +658,15 @@ abstract class AbstractBlackfireHelper extends Module
      */
     protected function getEnvironmentName(): string
     {
-        $environment = $this->config[static::ENVIRONMENT_NAME];
         if (getenv('BLACKFIRE_ENVIRONMENT_NAME')) {
-            $environment = getenv('BLACKFIRE_ENVIRONMENT_NAME');
+            return getenv('BLACKFIRE_ENVIRONMENT_NAME');
         }
 
-        return $environment;
+        if (isset($this->config[static::ENVIRONMENT_NAME])) {
+            return $this->config[static::ENVIRONMENT_NAME];
+        }
+
+        return 'environment not available';
     }
 
     /**
