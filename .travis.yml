@@ -5,7 +5,6 @@ php:
 
 cache:
     directories:
-        - vendor
         - $HOME/.composer/cache
 
 env:
@@ -17,8 +16,8 @@ install:
     - composer install --no-interaction --prefer-dist
 
 script:
-    - vendor/bin/phpcs src --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml
-    - vendor/bin/phpcs tests --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml
+    - vendor/bin/phpcs src/ --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml
+    - vendor/bin/phpcs tests/ --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml
 
 after_success:
     - vendor/bin/coveralls -vvv
