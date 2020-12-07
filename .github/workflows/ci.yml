@@ -1,10 +1,11 @@
 name: CI
 
 on:
-  push:
   pull_request:
   schedule:
     - cron: "0 0 * * *"
+    branches:
+      - 'master'
 
 env:
   APPLICATION_ENV: 'development'
@@ -16,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: [ '8.0', '7.4', '7.3' ]
+        php-version: [ '7.4', '7.3', '7.2' ]
 
     steps:
       - name: Checkout
@@ -51,10 +52,8 @@ jobs:
       - name: Composer install
         run: composer install --prefer-dist --no-interaction --optimize-autoloader
 
-      - name: Run tests
-        run: |
-          vendor/bin/phpcs src/ --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml
-          vendor/bin/phpcs tests/ --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml
+      - name: CodeStyle checks
+        run: vendor/bin/phpcs tests/ --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml
 
       - name: Coveralls
         run: vendor/bin/coveralls -vvv
@@ -64,7 +63,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: [ '7.3' ]
+        php-version: [ '7.2' ]
 
     steps:
       - name: Checkout
@@ -96,10 +95,8 @@ jobs:
       - name: Check PHP for syntax errors
         run: find ./src -path src -prune -o -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v "No syntax errors detected" )
 
-      - name: Run tests
-        run: |
-          vendor/bin/phpcs src/ --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml
-          vendor/bin/phpcs tests/ --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml
+      - name: CodeStyle checks
+        run: vendor/bin/phpcs tests/ --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml
 
       - name: Coveralls
         run: vendor/bin/coveralls -vvv

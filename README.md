@@ -1,5 +1,5 @@
 # Blackfire Module
-[![Build Status](https://travis-ci.org/spryker-sdk/blackfire.svg)](https://travis-ci.org/spryker-sdk/blackfire)
+[![Build Status](https://github.com/spryker-sdk/blackfire/workflows/CI/badge.svg?branch=master)](https://github.com/spryker-sdk/blackfire/actions?query=workflow%3ACI+branch%3Amaster)
 [![Coverage Status](https://coveralls.io/repos/github/spryker-sdk/blackfire/badge.svg)](https://coveralls.io/github/spryker-sdk/blackfire)
 
 Provides codeception helper for performance tests with blackfire.
