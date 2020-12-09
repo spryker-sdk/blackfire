@@ -4,7 +4,7 @@
   "description": "Blackfire module",
   "license": "proprietary",
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.3",
     "blackfire/php-sdk": "^1.18",
     "guzzlehttp/psr7": "<1.6"
   },
